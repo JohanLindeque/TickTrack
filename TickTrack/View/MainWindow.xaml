@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TickTrack"
         mc:Ignorable="d"
        Title="Tick Track"
-        Height="500"
+        Height="520"
         Width="800"
         Background="#F3F6F8"
         WindowStartupLocation="CenterScreen">
@@ -30,18 +30,18 @@
 
             <!-- Buttons -->
             <WrapPanel Margin="0,15,0,0">
-                <Button x:Name="btnStart" Content="Start" Background="#4A90E2" Foreground="White" Width="100" Height="30" Margin="5"/>
-                <Button x:Name="btnPauseContinue" Content="Pause | Play" Background="#F3F6F8" Foreground="Black" Width="100" Height="30" Margin="5"/>
+                <Button x:Name="btnStart" Content="Start" Background="#FF21C15C" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FF21C15C"/>
+                <Button x:Name="btnPauseContinue" Content="Pause | Play" Background="#FFF3F6FF" Foreground="Black" Width="100" Height="30" Margin="5"/>
             </WrapPanel>
 
             <WrapPanel Margin="0,5,0,0">
-                <Button x:Name="btbnSave" Content="Save" Background="#B57EDC" Foreground="White" Width="100" Height="30" Margin="5" />
-                <Button x:Name="btnDelete" Content="Delete" Background="#D9534F" Foreground="White" Width="100" Height="30" Margin="5"/>
+                <Button x:Name="btbnSave" Content="Save" Background="#FF3D85FB" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FF3D85FB" />
+                <Button x:Name="btnDelete" Content="Delete" Background="#FFE24242" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFE24242"/>
             </WrapPanel>
 
             <WrapPanel Margin="0,5,0,0">
-                <Button x:Name="btnStop" Content="Stop" Background="#FFD9534F" Foreground="White" Width="100" Height="30" Margin="5"/>
-                <Button x:Name="btnExport" Content="Export" Background="#B57EDC" Foreground="White" Width="100" Height="30" Margin="5"/>
+                <Button x:Name="btnStop" Content="Stop" Background="#FFFDA40C" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFFDA40C"/>
+                <Button x:Name="btnExport" Content="Export" Background="#FFA855F8" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFA855F8"/>
             </WrapPanel>
         </StackPanel>
 
@@ -50,7 +50,7 @@
             <!-- Running Timer Display -->
             <TextBlock x:Name="btnTimer" Text="00:00:00" Background="White" Foreground="#283E4A"
                        FontSize="20" FontWeight="Bold" TextAlignment="Center"
-                       Width="400" Height="50" Padding="10"/>
+                       Width="477" Height="50" Padding="10"/>
 
             <!-- Data Grid -->
             <DataGrid x:Name="dgvTaskEntries" Background="White" BorderBrush="#0077B5" Margin="0,1,0,0"
