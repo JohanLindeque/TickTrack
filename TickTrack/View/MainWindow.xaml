@@ -30,7 +30,7 @@
 
             <!-- Buttons -->
             <WrapPanel Margin="0,15,0,0">
-                <Button x:Name="btnStart" Content="Start" Background="#FF21C15C" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FF21C15C"/>
+                <Button x:Name="btnStart" Content="Start" Background="#FF21C15C" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FF21C15C" Click="btnStart_Click"/>
                 <Button x:Name="btnPauseContinue" Content="Pause | Play" Background="#FFF3F6FF" Foreground="Black" Width="100" Height="30" Margin="5"/>
             </WrapPanel>
 
