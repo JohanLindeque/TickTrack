@@ -32,7 +32,24 @@ public partial class MainWindow : Window
         List<TaskEntryModel> taskList = buttonActions.AddTask(txbTitle.Text, txbTaskNo.Text, txbDescription.Text);
 
         displayHelper.DisplayTasks(taskList);
+    }
 
+    private void dgvTaskEntries_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        DisplayHelper displayHelper = new DisplayHelper(this);
 
+        if (dgvTaskEntries.SelectedItem != null)
+        {
+            // TODO: fix data grid view, al die columns he anders gaan die nie werk
+            var selectedTask = (TaskEntryModel)dgvTaskEntries.SelectedItem;
+
+            displayHelper.PopulateSelectedTaskDataIOnDGV(selectedTask);
+
+            //txbEntryNo.Text = selectedTask.entryId.ToString();
+            //txbTitle.Text = selectedTask.title;
+            //txbTaskNo.Text = selectedTask.taskNo;
+            //txbDescription.Text = selectedTask.description;
+            //txbTimeSpent.Text = selectedTask.timeSpent.ToString();
+        }
     }
 }

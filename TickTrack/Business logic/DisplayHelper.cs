@@ -26,7 +26,6 @@ namespace TickTrack.Business_logic
 
             mainWindow.dgvTaskEntries.ItemsSource = data.DefaultView;
 
-
         }
 
         private DataTable CreateDataTableFromTaskList(List<TaskEntryModel> tasks)
@@ -48,6 +47,15 @@ namespace TickTrack.Business_logic
             }
 
             return data;
+        }
+
+        public void PopulateSelectedTaskDataIOnDGV(TaskEntryModel selectedTask)
+        {
+            mainWindow.txbEntryNo.Text = selectedTask.entryId.ToString();
+            mainWindow.txbTitle.Text = selectedTask.title;
+            mainWindow.txbTaskNo.Text = selectedTask.taskNo;
+            mainWindow.txbDescription.Text = selectedTask.description;
+            mainWindow.txbTimeSpent.Text = selectedTask.timeSpent.ToString();
         }
     }
 }
