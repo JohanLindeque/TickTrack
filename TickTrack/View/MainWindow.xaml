@@ -1,0 +1,66 @@
+﻿<Window x:Class="TickTrack.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TickTrack"
+        mc:Ignorable="d"
+       Title="Tick Track"
+        Height="520"
+        Width="800"
+        Background="#F3F6F8"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <!-- Title Bar -->
+        <Rectangle Fill="#0077B5" Height="50" VerticalAlignment="Top"/>
+        <TextBlock Text="Tick Track" Foreground="White" FontSize="20" FontWeight="Bold"
+                   VerticalAlignment="Top" Margin="20,10,0,0"/>
+
+        <!-- Input Section -->
+        <StackPanel Margin="20,70,0,0" Width="250" HorizontalAlignment="Left">
+            <TextBlock x:Name="lblTitle" Text="Title" Foreground="#283E4A" FontWeight="Bold"/>
+            <TextBox x:Name="txbTitle" Background="White" BorderBrush="#0077B5" Height="25"/>
+
+            <TextBlock x:Name="lblTaskNo" Text="Task No." Foreground="#283E4A" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="txbTaskNo" Background="White" BorderBrush="#0077B5" Height="25"/>
+
+            <TextBlock x:Name="lblDescription" Text="Description" Foreground="#283E4A" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="txbDescription" Background="White" BorderBrush="#0077B5" Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+            <!-- Buttons -->
+            <WrapPanel Margin="0,15,0,0">
+                <Button x:Name="btnStart" Content="Start" Background="#FF21C15C" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FF21C15C"/>
+                <Button x:Name="btnPauseContinue" Content="Pause | Play" Background="#FFF3F6FF" Foreground="Black" Width="100" Height="30" Margin="5"/>
+            </WrapPanel>
+
+            <WrapPanel Margin="0,5,0,0">
+                <Button x:Name="btbnSave" Content="Save" Background="#FF3D85FB" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FF3D85FB" />
+                <Button x:Name="btnDelete" Content="Delete" Background="#FFE24242" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFE24242"/>
+            </WrapPanel>
+
+            <WrapPanel Margin="0,5,0,0">
+                <Button x:Name="btnStop" Content="Stop" Background="#FFFDA40C" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFFDA40C"/>
+                <Button x:Name="btnExport" Content="Export" Background="#FFA855F8" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFA855F8"/>
+            </WrapPanel>
+        </StackPanel>
+
+        <!-- Display Section -->
+        <StackPanel Margin="300,70,20,0">
+            <!-- Running Timer Display -->
+            <TextBlock x:Name="btnTimer" Text="00:00:00" Background="White" Foreground="#283E4A"
+                       FontSize="20" FontWeight="Bold" TextAlignment="Center"
+                       Width="477" Height="50" Padding="10"/>
+
+            <!-- Data Grid -->
+            <DataGrid x:Name="dgvTaskEntries" Background="White" BorderBrush="#0077B5" Margin="0,1,0,0"
+                      AutoGenerateColumns="False" Height="340">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Entry No." Binding="{Binding EntryNo}"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                    <DataGridTextColumn Header="Time Spent" Binding="{Binding TimeSpent}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>
