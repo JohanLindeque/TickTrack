@@ -80,4 +80,17 @@ public partial class MainWindow : Window
         displayHelper.DisplayTasks(taskList);
         CLearInputs();
     }
+
+    private void btnDelete_Click(object sender, RoutedEventArgs e)
+    {
+        DisplayHelper displayHelper = new DisplayHelper(this);
+
+        if (txbEntryNo.Text != "")
+        {
+            taskList = buttonActions.DeleteTask(int.Parse(txbEntryNo.Text));
+        }
+
+        displayHelper.DisplayTasks(taskList);
+        CLearInputs();
+    }
 }
