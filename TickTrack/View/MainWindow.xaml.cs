@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Data;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,7 @@ namespace TickTrack;
 public partial class MainWindow : Window
 {
     ButtonActions buttonActions = new ButtonActions();
+    List<TaskEntryModel> taskList = new List<TaskEntryModel>();
 
     public MainWindow()
     {
@@ -29,9 +31,21 @@ public partial class MainWindow : Window
     private void btnStart_Click(object sender, RoutedEventArgs e)
     {
         DisplayHelper displayHelper = new DisplayHelper(this);
-        List<TaskEntryModel> taskList = buttonActions.AddTask(txbTitle.Text, txbTaskNo.Text, txbDescription.Text);
+        taskList = buttonActions.AddTask(txbTitle.Text, txbTaskNo.Text, txbDescription.Text);
 
         displayHelper.DisplayTasks(taskList);
+
+        CLearInputs();
+    }
+
+    private void CLearInputs()
+    {
+        txbEntryNo.Clear();
+        txbTitle.Clear();
+        txbTitle.Focus();
+        txbTaskNo.Clear();
+        txbDescription.Clear();
+        txbTimeSpent.Clear();
     }
 
     private void dgvTaskEntries_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -40,16 +54,14 @@ public partial class MainWindow : Window
 
         if (dgvTaskEntries.SelectedItem != null)
         {
-            // TODO: fix data grid view, al die columns he anders gaan die nie werk
-            var selectedTask = (TaskEntryModel)dgvTaskEntries.SelectedItem;
+            if(dgvTaskEntries.SelectedItem is DataRowView data)
+            {
+                int entryId = Convert.ToInt32(data["EntryNo"]);
+                displayHelper.PopulateSelectedTaskDataIOnDGV(taskList, entryId-1);
 
-            displayHelper.PopulateSelectedTaskDataIOnDGV(selectedTask);
+            }
 
-            //txbEntryNo.Text = selectedTask.entryId.ToString();
-            //txbTitle.Text = selectedTask.title;
-            //txbTaskNo.Text = selectedTask.taskNo;
-            //txbDescription.Text = selectedTask.description;
-            //txbTimeSpent.Text = selectedTask.timeSpent.ToString();
+
         }
     }
 }

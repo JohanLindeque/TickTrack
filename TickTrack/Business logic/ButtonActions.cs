@@ -17,14 +17,7 @@ namespace TickTrack.Business_logic
             TimeSpan spentTime = new TimeSpan(0,1,3,20); // d,h,m,s
             int entryNo = taskList.Count + 1;
 
-            TaskEntryModel task = new TaskEntryModel
-            {
-                entryId = entryNo,
-                title = taskTitle,
-                taskNo = taskNo,
-                description = description,
-                timeSpent = spentTime
-            };
+            TaskEntryModel task = new TaskEntryModel(entryNo, taskTitle, taskNo, description, spentTime);
 
             taskList.Add(task);
             return taskList;

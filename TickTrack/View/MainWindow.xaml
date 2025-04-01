@@ -62,6 +62,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Entry No." Binding="{Binding EntryNo}"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                    <DataGridTextColumn Header="Task No" Binding="{Binding TaskNo}"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
                     <DataGridTextColumn Header="Time Spent" Binding="{Binding TimeSpent}"/>
                 </DataGrid.Columns>
             </DataGrid>

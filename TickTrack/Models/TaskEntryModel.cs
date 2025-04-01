@@ -14,5 +14,15 @@ namespace TickTrack.Models
         public string? description { get; set; }
         public TimeSpan timeSpent { get; set; }
 
+        public TaskEntryModel(int entryId, string title, string? taskNo, string? description, TimeSpan timeSpent)
+        {
+            this.entryId = entryId;
+            this.title = title;
+            this.taskNo = taskNo;
+            this.description = description;
+            this.timeSpent = timeSpent;
+        }
+
+
     }
 }

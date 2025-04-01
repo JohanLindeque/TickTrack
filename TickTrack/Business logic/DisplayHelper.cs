@@ -33,6 +33,8 @@ namespace TickTrack.Business_logic
             DataTable data = new DataTable();
             data.Columns.Add("EntryNo");
             data.Columns.Add("Title");
+            data.Columns.Add("TaskNo");
+            data.Columns.Add("Description");
             data.Columns.Add("TimeSpent");
 
 
@@ -41,6 +43,8 @@ namespace TickTrack.Business_logic
                 var row = data.NewRow();
                 row["EntryNo"] = task.entryId.ToString();
                 row["Title"] = task.title;
+                row["TaskNo"] = task.taskNo;
+                row["Description"] = task.description;
                 row["TimeSpent"] = task.timeSpent.ToString();
                 data.Rows.Add(row);
 
@@ -49,13 +53,19 @@ namespace TickTrack.Business_logic
             return data;
         }
 
-        public void PopulateSelectedTaskDataIOnDGV(TaskEntryModel selectedTask)
+        public void PopulateSelectedTaskDataIOnDGV(List<TaskEntryModel> tasks, int entryId)
         {
-            mainWindow.txbEntryNo.Text = selectedTask.entryId.ToString();
-            mainWindow.txbTitle.Text = selectedTask.title;
-            mainWindow.txbTaskNo.Text = selectedTask.taskNo;
-            mainWindow.txbDescription.Text = selectedTask.description;
-            mainWindow.txbTimeSpent.Text = selectedTask.timeSpent.ToString();
+            if (entryId < tasks.Count())
+            {
+                TaskEntryModel selectedTask = tasks[entryId];
+
+                mainWindow.txbEntryNo.Text = selectedTask.entryId.ToString();
+                mainWindow.txbTitle.Text = selectedTask.title;
+                mainWindow.txbTaskNo.Text = selectedTask.taskNo;
+                mainWindow.txbDescription.Text = selectedTask.description;
+                mainWindow.txbTimeSpent.Text = selectedTask.timeSpent.ToString();
+            }
+            
         }
     }
 }
