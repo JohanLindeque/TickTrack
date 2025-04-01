@@ -38,6 +38,7 @@ public partial class MainWindow : Window
         CLearInputs();
     }
 
+
     private void CLearInputs()
     {
         txbEntryNo.Clear();
@@ -57,11 +58,26 @@ public partial class MainWindow : Window
             if(dgvTaskEntries.SelectedItem is DataRowView data)
             {
                 int entryId = Convert.ToInt32(data["EntryNo"]);
-                displayHelper.PopulateSelectedTaskDataIOnDGV(taskList, entryId-1);
-
+                displayHelper.PopulateSelectedTaskDataIOnDGV(taskList, entryId);
             }
 
 
         }
+    }
+
+    private void btbnSave_Click(object sender, RoutedEventArgs e)
+    {
+        DisplayHelper displayHelper = new DisplayHelper(this);
+
+        if (txbEntryNo.Text == "")
+            taskList = buttonActions.AddTask(txbTitle.Text, txbTaskNo.Text, txbDescription.Text);
+        else
+        {
+            TimeSpan time = new TimeSpan(0, 1, 3, 20); // d,h,m,s
+            taskList = buttonActions.UpdateTask(int.Parse(txbEntryNo.Text), txbTitle.Text, txbTaskNo.Text, txbDescription.Text, time);
+        }
+
+        displayHelper.DisplayTasks(taskList);
+        CLearInputs();
     }
 }

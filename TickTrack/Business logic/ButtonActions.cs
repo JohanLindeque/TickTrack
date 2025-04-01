@@ -15,15 +15,34 @@ namespace TickTrack.Business_logic
         {
 
             TimeSpan spentTime = new TimeSpan(0,1,3,20); // d,h,m,s
-            int entryNo = taskList.Count + 1;
+            int entryNo = taskList.Count;
 
             TaskEntryModel task = new TaskEntryModel(entryNo, taskTitle, taskNo, description, spentTime);
 
             taskList.Add(task);
-            return taskList;
-            
-            
+            return taskList;            
 
         }
-    }
+
+        public List<TaskEntryModel> UpdateTask(int entryNo, string taskTitle, string taskNo, string description, TimeSpan timeSpent)
+        {
+            taskList[entryNo].title = taskTitle;
+            taskList[entryNo].taskNo = taskNo;
+            taskList[entryNo].description = description;
+            taskList[entryNo].timeSpent = timeSpent;
+
+            return taskList;
+
+        }
+
+        public List<TaskEntryModel> DeleteTask(int entryNo)
+        {
+            taskList.RemoveAt(entryNo);
+            return taskList;
+
+        }
+
+
+
+    } 
 }

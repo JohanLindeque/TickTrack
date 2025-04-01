@@ -39,7 +39,7 @@
             </WrapPanel>
 
             <WrapPanel Margin="0,5,0,0">
-                <Button x:Name="btbnSave" Content="Save" Background="#FF3D85FB" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FF3D85FB" />
+                <Button x:Name="btbnSave" Content="Save" Background="#FF3D85FB" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FF3D85FB" Click="btbnSave_Click" />
                 <Button x:Name="btnDelete" Content="Delete" Background="#FFE24242" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFE24242"/>
             </WrapPanel>
 
