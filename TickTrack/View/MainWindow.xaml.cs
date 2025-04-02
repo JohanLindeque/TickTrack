@@ -12,6 +12,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TickTrack.Business_logic;
 using TickTrack.Models;
+using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace TickTrack;
 
@@ -20,22 +22,35 @@ namespace TickTrack;
 /// </summary>
 public partial class MainWindow : Window
 {
-    ButtonActions buttonActions = new ButtonActions();
-    List<TaskEntryModel> taskList = new List<TaskEntryModel>();
+    private ButtonActions _buttonActions = new ButtonActions();
+    private List<TaskEntryModel> _taskList = new List<TaskEntryModel>();
+    private Stopwatch _stopWatch = new Stopwatch();
+    private Timer _timer = new Timer(1000);
+
 
     public MainWindow()
     {
         InitializeComponent();
+
+        _timer.Elapsed += UpdateTimer_Tick;
+    }
+
+    private void UpdateTimer_Tick(object? sender, EventArgs e)
+    {
+        Application.Current.Dispatcher.Invoke(() => txbTimer.Text = _stopWatch.Elapsed.ToString(@"hh\:mm\:ss"));
     }
 
     private void btnStart_Click(object sender, RoutedEventArgs e)
     {
         DisplayHelper displayHelper = new DisplayHelper(this);
-        taskList = buttonActions.AddTask(txbTitle.Text, txbTaskNo.Text, txbDescription.Text);
+        _taskList = _buttonActions.AddTask(txbTitle.Text, txbTaskNo.Text, txbDescription.Text);
 
-        displayHelper.DisplayTasks(taskList);
+        displayHelper.DisplayTasks(_taskList);
 
-        CLearInputs();
+        _stopWatch.Start();
+        _timer.Start();
+
+        //CLearInputs();
     }
 
 
@@ -58,7 +73,7 @@ public partial class MainWindow : Window
             if(dgvTaskEntries.SelectedItem is DataRowView data)
             {
                 int entryId = Convert.ToInt32(data["EntryNo"]);
-                displayHelper.PopulateSelectedTaskDataIOnDGV(taskList, entryId);
+                displayHelper.PopulateSelectedTaskDataIOnDGV(_taskList, entryId);
             }
 
 
@@ -70,14 +85,14 @@ public partial class MainWindow : Window
         DisplayHelper displayHelper = new DisplayHelper(this);
 
         if (txbEntryNo.Text == "")
-            taskList = buttonActions.AddTask(txbTitle.Text, txbTaskNo.Text, txbDescription.Text);
+            _taskList = _buttonActions.AddTask(txbTitle.Text, txbTaskNo.Text, txbDescription.Text);
         else
         {
-            TimeSpan time = new TimeSpan(0, 1, 3, 20); // d,h,m,s
-            taskList = buttonActions.UpdateTask(int.Parse(txbEntryNo.Text), txbTitle.Text, txbTaskNo.Text, txbDescription.Text, time);
+            TimeSpan time = new TimeSpan(1, 3, 20); // h,m,s
+            _taskList = _buttonActions.UpdateTask(int.Parse(txbEntryNo.Text), txbTitle.Text, txbTaskNo.Text, txbDescription.Text, time);
         }
 
-        displayHelper.DisplayTasks(taskList);
+        displayHelper.DisplayTasks(_taskList);
         CLearInputs();
     }
 
@@ -87,10 +102,16 @@ public partial class MainWindow : Window
 
         if (txbEntryNo.Text != "")
         {
-            taskList = buttonActions.DeleteTask(int.Parse(txbEntryNo.Text));
+            _taskList = _buttonActions.DeleteTask(int.Parse(txbEntryNo.Text));
         }
 
-        displayHelper.DisplayTasks(taskList);
+        displayHelper.DisplayTasks(_taskList);
         CLearInputs();
+    }
+
+    private void btnStop_Click(object sender, RoutedEventArgs e)
+    {
+        _stopWatch.Stop();
+        _timer.Stop();
     }
 }

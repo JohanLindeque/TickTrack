@@ -44,7 +44,7 @@
             </WrapPanel>
 
             <WrapPanel Margin="0,5,0,0">
-                <Button x:Name="btnStop" Content="Stop" Background="#FFFDA40C" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFFDA40C"/>
+                <Button x:Name="btnStop" Content="Stop" Background="#FFFDA40C" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFFDA40C" Click="btnStop_Click"/>
                 <Button x:Name="btnExport" Content="Export" Background="#FFA855F8" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFA855F8"/>
             </WrapPanel>
         </StackPanel>
@@ -53,8 +53,8 @@
         <StackPanel Margin="300,70,20,0">
             <!-- Running Timer Display -->
             
-            <TextBlock x:Name="btnTimer" Text="00:00:00" Background="White" Foreground="#283E4A"
-                       FontSize="20" FontWeight="Bold" TextAlignment="Center"
+            <TextBlock x:Name="txbTimer" Text="00:00:00" Background="White" Foreground="#283E4A"
+                       FontSize="28" FontWeight="Bold" TextAlignment="Center"
                        Width="477" Height="50" Padding="10"/>
 
             <!-- Data Grid -->
