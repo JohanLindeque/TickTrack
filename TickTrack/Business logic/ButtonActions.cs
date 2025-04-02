@@ -26,10 +26,10 @@ namespace TickTrack.Business_logic
 
         public List<TaskEntryModel> UpdateTask(int entryNo, string taskTitle, string taskNo, string description, TimeSpan timeSpent)
         {
-            taskList[entryNo].title = taskTitle;
-            taskList[entryNo].taskNo = taskNo;
-            taskList[entryNo].description = description;
-            taskList[entryNo].timeSpent = timeSpent;
+            taskList[entryNo].Title = taskTitle;
+            taskList[entryNo].TaskNo = taskNo;
+            taskList[entryNo].Description = description;
+            taskList[entryNo].TimeSpent = timeSpent;
 
             return taskList;
 

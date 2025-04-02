@@ -52,6 +52,7 @@
         <!-- Display Section -->
         <StackPanel Margin="300,70,20,0">
             <!-- Running Timer Display -->
+            
             <TextBlock x:Name="btnTimer" Text="00:00:00" Background="White" Foreground="#283E4A"
                        FontSize="20" FontWeight="Bold" TextAlignment="Center"
                        Width="477" Height="50" Padding="10"/>

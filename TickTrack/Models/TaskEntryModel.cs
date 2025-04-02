@@ -6,21 +6,26 @@ using System.Threading.Tasks;
 
 namespace TickTrack.Models
 {
-    class TaskEntryModel
+    internal class TaskEntryModel
     {
-        public int entryId{ get; set; }
-        public string title { get; set; }
-        public string? taskNo { get; set; }
-        public string? description { get; set; }
-        public TimeSpan timeSpent { get; set; }
+        public int EntryId{ get; set; }
+        public string Title { get; set; }
+        public string? TaskNo { get; set; }
+        public string? Description { get; set; }
+        public TimeSpan TimeSpent { get; set; }
 
         public TaskEntryModel(int entryId, string title, string? taskNo, string? description, TimeSpan timeSpent)
         {
-            this.entryId = entryId;
-            this.title = title;
-            this.taskNo = taskNo;
-            this.description = description;
-            this.timeSpent = timeSpent;
+            this.EntryId = entryId;
+            this.Title = title;
+            this.TaskNo = taskNo;
+            this.Description = description;
+            this.TimeSpent = timeSpent;
+        }
+
+        public TaskEntryModel()
+        {
+            
         }
 
 

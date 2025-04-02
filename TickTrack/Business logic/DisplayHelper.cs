@@ -41,11 +41,11 @@ namespace TickTrack.Business_logic
             foreach (var task in tasks)
             {
                 var row = data.NewRow();
-                row["EntryNo"] = task.entryId.ToString();
-                row["Title"] = task.title;
-                row["TaskNo"] = task.taskNo;
-                row["Description"] = task.description;
-                row["TimeSpent"] = task.timeSpent.ToString();
+                row["EntryNo"] = task.EntryId.ToString();
+                row["Title"] = task.Title;
+                row["TaskNo"] = task.TaskNo;
+                row["Description"] = task.Description;
+                row["TimeSpent"] = task.TimeSpent.ToString();
                 data.Rows.Add(row);
 
             }
@@ -59,11 +59,11 @@ namespace TickTrack.Business_logic
             {
                 TaskEntryModel selectedTask = tasks[entryId];
 
-                mainWindow.txbEntryNo.Text = selectedTask.entryId.ToString();
-                mainWindow.txbTitle.Text = selectedTask.title;
-                mainWindow.txbTaskNo.Text = selectedTask.taskNo;
-                mainWindow.txbDescription.Text = selectedTask.description;
-                mainWindow.txbTimeSpent.Text = selectedTask.timeSpent.ToString();
+                mainWindow.txbEntryNo.Text = selectedTask.EntryId.ToString();
+                mainWindow.txbTitle.Text = selectedTask.Title;
+                mainWindow.txbTaskNo.Text = selectedTask.TaskNo;
+                mainWindow.txbDescription.Text = selectedTask.Description;
+                mainWindow.txbTimeSpent.Text = selectedTask.TimeSpent.ToString();
             }
             
         }
