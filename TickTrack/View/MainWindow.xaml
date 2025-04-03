@@ -19,7 +19,8 @@
 
         <!-- Input Section -->
         <StackPanel Margin="20,70,0,0" Width="250" HorizontalAlignment="Left">
-            <TextBox x:Name="txbEntryNo" IsReadOnly="True" IsEnabled="False" />
+
+            <TextBox x:Name="txbEntryNo" IsReadOnly="True" IsEnabled="False" Visibility="Hidden" />
 
             <TextBlock x:Name="lblTitle" Text="Title" Foreground="#283E4A" FontWeight="Bold"/>
             <TextBox x:Name="txbTitle" Background="White" BorderBrush="#0077B5" Height="25"/>
@@ -29,13 +30,16 @@
 
             <TextBlock x:Name="lblDescription" Text="Description" Foreground="#283E4A" FontWeight="Bold" Margin="0,10,0,0"/>
             <TextBox x:Name="txbDescription" Background="White" BorderBrush="#0077B5" Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
-            <TextBox x:Name="txbTimeSpent" IsReadOnly="True" IsEnabled="False" />
+
+            <TextBlock x:Name="lblTimeSpent" Text="Time Spent" Foreground="#283E4A" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="txbTimeSpent" IsReadOnly="True" Background="White" BorderBrush="#0077B5" Height="35"  />
 
 
             <!-- Buttons -->
             <WrapPanel Margin="0,15,0,0">
                 <Button x:Name="btnStart" Content="Start" Background="#FF21C15C" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FF21C15C" Click="btnStart_Click"/>
-                <Button x:Name="btnPauseContinue" Content="Pause | Play" Background="#FFF3F6FF" Foreground="Black" Width="100" Height="30" Margin="5"/>
+                <Button x:Name="btnStop" Content="Stop" Background="#FFFDA40C" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFFDA40C" Click="btnStop_Click"/>
+
             </WrapPanel>
 
             <WrapPanel Margin="0,5,0,0">
@@ -44,7 +48,7 @@
             </WrapPanel>
 
             <WrapPanel Margin="0,5,0,0">
-                <Button x:Name="btnStop" Content="Stop" Background="#FFFDA40C" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFFDA40C" Click="btnStop_Click"/>
+                <Button x:Name="btnReset" Content="Reset" Background="#FFF3F6FF" Foreground="Black" Width="100" Height="30" Margin="5" Click="btnReset_Click"/>
                 <Button x:Name="btnExport" Content="Export" Background="#FFA855F8" Foreground="White" Width="100" Height="30" Margin="5" BorderBrush="#FFA855F8"/>
             </WrapPanel>
         </StackPanel>
@@ -52,14 +56,14 @@
         <!-- Display Section -->
         <StackPanel Margin="300,70,20,0">
             <!-- Running Timer Display -->
-            
+
             <TextBlock x:Name="txbTimer" Text="00:00:00" Background="White" Foreground="#283E4A"
                        FontSize="28" FontWeight="Bold" TextAlignment="Center"
                        Width="477" Height="50" Padding="10"/>
 
             <!-- Data Grid -->
             <DataGrid x:Name="dgvTaskEntries" Background="White" BorderBrush="#0077B5" Margin="0,1,0,0"
-                      AutoGenerateColumns="False" Height="340" SelectionChanged="dgvTaskEntries_SelectionChanged">
+                      AutoGenerateColumns="False" Height="350" SelectionChanged="dgvTaskEntries_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Entry No." Binding="{Binding EntryNo}"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>

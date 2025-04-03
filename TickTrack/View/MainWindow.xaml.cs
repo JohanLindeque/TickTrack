@@ -50,7 +50,7 @@ public partial class MainWindow : Window
         _stopWatch.Start();
         _timer.Start();
 
-        //CLearInputs();
+        
     }
 
 
@@ -93,6 +93,7 @@ public partial class MainWindow : Window
         }
 
         displayHelper.DisplayTasks(_taskList);
+
         CLearInputs();
     }
 
@@ -113,5 +114,14 @@ public partial class MainWindow : Window
     {
         _stopWatch.Stop();
         _timer.Stop();
+    }
+
+    private void btnReset_Click(object sender, RoutedEventArgs e)
+    {
+        string msgHeader = "Do you want to reset the Task List?";
+        string msgBody = "You will loose all tasks progress.";
+
+
+        CLearInputs();
     }
 }
