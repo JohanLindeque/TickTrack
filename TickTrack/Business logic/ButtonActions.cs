@@ -11,13 +11,11 @@ namespace TickTrack.Business_logic
     {
         List<TaskEntryModel> taskList = new List<TaskEntryModel>();
         
-        public List<TaskEntryModel> AddTask(string taskTitle, string taskNo, string description)
+        public List<TaskEntryModel> AddTask(string taskTitle, string taskNo, string description, TimeSpan timeSpent)
         {
-
-            TimeSpan spentTime = new TimeSpan(0,1,3,20); // d,h,m,s
             int entryNo = taskList.Count;
 
-            TaskEntryModel task = new TaskEntryModel(entryNo, taskTitle, taskNo, description, spentTime);
+            TaskEntryModel task = new TaskEntryModel(entryNo, taskTitle, taskNo, description, timeSpent);
 
             taskList.Add(task);
             return taskList;            

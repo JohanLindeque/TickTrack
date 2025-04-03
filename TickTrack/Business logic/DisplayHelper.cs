@@ -22,8 +22,6 @@ namespace TickTrack.Business_logic
             DataTable data = new DataTable();
             data = CreateDataTableFromTaskList(tasks);
 
-            //mainWindow.dgvTaskEntries.Items.Clear();
-
             mainWindow.dgvTaskEntries.ItemsSource = data.DefaultView;
 
         }
@@ -45,7 +43,7 @@ namespace TickTrack.Business_logic
                 row["Title"] = task.Title;
                 row["TaskNo"] = task.TaskNo;
                 row["Description"] = task.Description;
-                row["TimeSpent"] = task.TimeSpent.ToString();
+                row["TimeSpent"] = task.TimeSpent.ToString(@"hh\:mm\:ss");
                 data.Rows.Add(row);
 
             }
@@ -63,7 +61,7 @@ namespace TickTrack.Business_logic
                 mainWindow.txbTitle.Text = selectedTask.Title;
                 mainWindow.txbTaskNo.Text = selectedTask.TaskNo;
                 mainWindow.txbDescription.Text = selectedTask.Description;
-                mainWindow.txbTimeSpent.Text = selectedTask.TimeSpent.ToString();
+                mainWindow.txbTimeSpent.Text = selectedTask.TimeSpent.ToString(@"hh\:mm\:ss");
             }
             
         }

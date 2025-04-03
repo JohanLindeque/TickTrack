@@ -25,7 +25,8 @@ public partial class MainWindow : Window
     private ButtonActions _buttonActions = new ButtonActions();
     private List<TaskEntryModel> _taskList = new List<TaskEntryModel>();
     private Stopwatch _stopWatch = new Stopwatch();
-    private Timer _timer = new Timer(1000);
+    private Timer _timer = new Timer(1000); // 1 sec
+    private TimeSpan _timeOffset = TimeSpan.Zero;
 
 
     public MainWindow()
@@ -37,64 +38,70 @@ public partial class MainWindow : Window
 
     private void UpdateTimer_Tick(object? sender, EventArgs e)
     {
-        Application.Current.Dispatcher.Invoke(() => txbTimer.Text = _stopWatch.Elapsed.ToString(@"hh\:mm\:ss"));
+        Application.Current.Dispatcher.Invoke(() => txbTimer.Text = GetTotalElapsedTime().ToString(@"hh\:mm\:ss"));
     }
 
+
+    // Logic for Buttons on click events
     private void btnStart_Click(object sender, RoutedEventArgs e)
     {
-        DisplayHelper displayHelper = new DisplayHelper(this);
-        _taskList = _buttonActions.AddTask(txbTitle.Text, txbTaskNo.Text, txbDescription.Text);
-
-        displayHelper.DisplayTasks(_taskList);
-
-        _stopWatch.Start();
-        _timer.Start();
-
-        
-    }
-
-
-    private void CLearInputs()
-    {
-        txbEntryNo.Clear();
-        txbTitle.Clear();
-        txbTitle.Focus();
-        txbTaskNo.Clear();
-        txbDescription.Clear();
-        txbTimeSpent.Clear();
-    }
-
-    private void dgvTaskEntries_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        DisplayHelper displayHelper = new DisplayHelper(this);
-
-        if (dgvTaskEntries.SelectedItem != null)
+        if (string.IsNullOrEmpty(txbTimeSpent.Text))
         {
-            if(dgvTaskEntries.SelectedItem is DataRowView data)
-            {
-                int entryId = Convert.ToInt32(data["EntryNo"]);
-                displayHelper.PopulateSelectedTaskDataIOnDGV(_taskList, entryId);
-            }
-
-
+            _timeOffset = TimeSpan.Zero;
+            _stopWatch.Restart();
+            _timer.Start();
         }
+        else
+        {
+            if (TimeSpan.TryParse(txbTimeSpent.Text, out TimeSpan timeAlreadySpent))
+            {
+                _timeOffset = timeAlreadySpent;
+                _stopWatch.Restart();
+                _timer.Start();
+            }
+            else
+            {
+                MessageBox.Show("Invalid time format. Please use hh:mm:ss format.");
+                return;
+            }
+        }
+            //txbTimeSpent.Text = GetTotalElapsedTime().ToString(@"hh\:mm\:ss");
+
+    }
+
+    private void btnStop_Click(object sender, RoutedEventArgs e)
+    {
+        UpdateTaskTimeSpent();
     }
 
     private void btbnSave_Click(object sender, RoutedEventArgs e)
     {
         DisplayHelper displayHelper = new DisplayHelper(this);
 
-        if (txbEntryNo.Text == "")
-            _taskList = _buttonActions.AddTask(txbTitle.Text, txbTaskNo.Text, txbDescription.Text);
-        else
+        _stopWatch.Stop();
+        _timer.Stop();
+
+
+        if (string.IsNullOrEmpty(txbEntryNo.Text))
+            _taskList = _buttonActions.AddTask(txbTitle.Text, txbTaskNo.Text, txbDescription.Text, GetTotalElapsedTime());
+        else 
         {
-            TimeSpan time = new TimeSpan(1, 3, 20); // h,m,s
-            _taskList = _buttonActions.UpdateTask(int.Parse(txbEntryNo.Text), txbTitle.Text, txbTaskNo.Text, txbDescription.Text, time);
+            TimeSpan.TryParse(txbTimeSpent.Text, out TimeSpan timeAlreadySpent);
+
+            if (GetTotalElapsedTime() == TimeSpan.Zero )
+                _taskList = _buttonActions.UpdateTask(int.Parse(txbEntryNo.Text), txbTitle.Text, txbTaskNo.Text, txbDescription.Text, timeAlreadySpent);
+            else
+            {
+                UpdateTaskTimeSpent();
+                TimeSpan.TryParse(txbTimeSpent.Text, out TimeSpan updateedTimeSpent);
+                _taskList = _buttonActions.UpdateTask(int.Parse(txbEntryNo.Text), txbTitle.Text, txbTaskNo.Text, txbDescription.Text, updateedTimeSpent);
+            }
+                
         }
 
         displayHelper.DisplayTasks(_taskList);
 
-        CLearInputs();
+        ClearInputs();
     }
 
     private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -107,13 +114,7 @@ public partial class MainWindow : Window
         }
 
         displayHelper.DisplayTasks(_taskList);
-        CLearInputs();
-    }
-
-    private void btnStop_Click(object sender, RoutedEventArgs e)
-    {
-        _stopWatch.Stop();
-        _timer.Stop();
+        ClearInputs();
     }
 
     private void btnReset_Click(object sender, RoutedEventArgs e)
@@ -121,7 +122,92 @@ public partial class MainWindow : Window
         string msgHeader = "Do you want to reset the Task List?";
         string msgBody = "You will loose all tasks progress.";
 
+        MessageBoxButton msgButtons = MessageBoxButton.OKCancel;
+        MessageBoxResult result = MessageBox.Show(msgHeader, msgBody, msgButtons);
 
-        CLearInputs();
+        switch (result)
+        {
+            case MessageBoxResult.None:
+                break;
+            case MessageBoxResult.OK:
+                ClearAppForm();
+                _taskList.Clear();
+                break;
+            case MessageBoxResult.Cancel:
+                break;
+
+        }
     }
+
+    // Helper methods
+    private void ClearInputs()
+    {
+        txbEntryNo.Clear();
+        txbTitle.Clear();
+        txbTitle.Focus();
+        txbTaskNo.Clear();
+        txbDescription.Clear();
+        txbTimeSpent.Clear();
+
+        _stopWatch.Reset();
+        _timer.Stop();
+        _timeOffset = TimeSpan.Zero;
+        txbTimeSpent.Text = "00:00:00";
+        txbTimer.Text = "00:00:00";
+
+
+    }
+    private void ClearAppForm()
+    {
+        txbEntryNo.Clear();
+        txbTitle.Clear();
+        txbTitle.Focus();
+        txbTaskNo.Clear();
+        txbDescription.Clear();
+        txbTimeSpent.Clear();
+
+        _stopWatch.Reset();
+        _timer.Stop();
+        _timeOffset = TimeSpan.Zero;
+        txbTimeSpent.Text = "00:00:00";
+        txbTimer.Text = "00:00:00";
+
+
+        dgvTaskEntries.ItemsSource = "";
+        MessageBox.Show("Reset done.");
+    }
+
+    private void dgvTaskEntries_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        DisplayHelper displayHelper = new DisplayHelper(this);
+
+        ClearInputs();
+
+        if (dgvTaskEntries.SelectedItem != null)
+        {
+            if(dgvTaskEntries.SelectedItem is DataRowView data)
+            {
+                int entryId = Convert.ToInt32(data["EntryNo"]);
+                displayHelper.PopulateSelectedTaskDataIOnDGV(_taskList, entryId);
+            }
+        }
+    }
+
+    
+
+    private void UpdateTaskTimeSpent()
+    {
+        _stopWatch.Stop();
+        _timer.Stop();
+        txbTimeSpent.Text = GetTotalElapsedTime().ToString(@"hh\:mm\:ss");
+    }
+
+    private TimeSpan GetTotalElapsedTime()
+    {
+        return _stopWatch.Elapsed.Add(_timeOffset);
+    }
+
+    
+
+
 }
