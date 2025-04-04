@@ -7,7 +7,7 @@ using TickTrack.Models;
 using TickTrack;
 using System.Data;
 
-namespace TickTrack.Business_logic
+namespace TickTrack.TaskProcessing
 {
     class DisplayHelper
     {

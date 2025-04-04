@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TickTrack.Business_logic;
+using TickTrack.TaskProcessing;
 using TickTrack.Models;
 using System.Timers;
 using Timer = System.Timers.Timer;
