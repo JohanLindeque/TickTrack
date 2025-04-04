@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TickTrack.Business_logic
+namespace TickTrack.TaskProcessing
 {
     class ExportTasksHandler
     {
