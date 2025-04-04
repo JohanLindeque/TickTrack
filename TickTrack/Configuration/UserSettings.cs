@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TickTrack.TaskProcessing;
 
 namespace TickTrack.Configuration
 {
@@ -20,7 +21,7 @@ namespace TickTrack.Configuration
                 if (string.IsNullOrEmpty(value))
                 {
                     Console.WriteLine($"Export File Path not valid: {value}");
-                    _exportFilePath = Directory.GetCurrentDirectory();
+                    _exportFilePath = CreateDefaultExportPath();
                 }
                 else
                 {
@@ -46,7 +47,24 @@ namespace TickTrack.Configuration
 
         }
 
+        private string CreateDefaultExportPath()
+        {
+            FileHandler fileHandler = new FileHandler();
 
+            string defaultDataPath = Path.Combine(Directory.GetCurrentDirectory(), $"Data");
+            string defaultExportName = $"Export-{DateTime.Today.ToString(@"DD MMM YYYY")}";
+
+            if (fileHandler.CheckIfFolderExist(defaultDataPath))
+            {
+                string defaultPath = Path.Combine(defaultDataPath, defaultExportName);
+                if (fileHandler.CheckIfFileExists(defaultPath))
+                {
+                    return defaultPath;
+                }
+            }
+
+            return "";
+        }
 
 
     }
