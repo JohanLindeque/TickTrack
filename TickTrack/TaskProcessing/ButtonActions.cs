@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TickTrack.Models;
 
-namespace TickTrack.Business_logic
+namespace TickTrack.TaskProcessing
 {
     class ButtonActions
     {
